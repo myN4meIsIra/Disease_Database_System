@@ -1,0 +1,55 @@
+<!-- Export -->
+<!---- export data from the database. This page allows users to export data from the database in various formats.-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Database</title>
+    <link rel="stylesheet" href="./stylesheets/export_stylesheet.css">
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <h1>Disease Database System</h1>
+    </header>
+    
+     <!-- navbar-->
+    <nav>
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="help.html">Help</a></li>
+            <li><a href="./php_files/upload.php">Upload</a></li> 
+            <li><a href="delete.html">Delete</a></li> 
+            <li><a href="export.html">Export</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href='./php_files/display_disease_information.php'>Diseases</a></li>
+        </ul>
+    </nav>
+
+    <!-- main content (the stuff that changes)-->
+     
+    
+    <div class="export-container">
+
+        
+        <h2>Export Data</h2>
+        
+        <p>The database contains several tables of patient data, disease data, etc. 
+            Click the button below to export the contents of the database as a .csv file </p>
+        
+        <form action="./php_files/export.php" method="POST">
+            <!-- Export Button -->
+            <button type="submit">Export Data</button>
+        </form>
+    </div>
+
+    <!--footer-->
+    <footer>
+        <p>Applied Databases Group Project 2025 </p>
+    </footer>
+</body>
+</html>

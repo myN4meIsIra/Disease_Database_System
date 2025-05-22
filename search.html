@@ -1,0 +1,210 @@
+<!-- search -->
+<!-- This is the search page of the website. It contains a search bar that allows users to search for data in the database. The search bar is connected to the database and returns results based on the user's query. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Search</title>
+    <link rel="stylesheet" href="./stylesheets/search_stylesheet.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <h1>Disease Database System</h1>
+    </header>
+    
+     <!-- navbar-->
+    <nav>
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="help.html">Help</a></li>
+            <li><a href="./php_files/upload.php">Upload</a></li> 
+            <li><a href="delete.html">Delete</a></li> 
+            <li><a href="export.html">Export</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href='./php_files/display_disease_information.php'>Diseases</a></li>
+        </ul>
+    </nav>
+
+    <!-- the disease stuffs -->
+    <div class="row-container">
+        <!-- Search container -->
+        <div class="search-container">
+            <h2>Search by Disease</h2>
+            <form action="./php_files/fullDiseaseLookup.php" method="post">
+                <!-- Label for accessibility -->
+                <label for="search">Enter disease name:</label>
+
+                <!-- Search input field -->
+                <input type="text" id="search" name="search" placeholder="Type your search term..." required>
+
+                <!-- Submit button -->
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Chart container -->
+        <div id="my3DChart" style="width:700px; height: 500px;"></div>
+    </div>
+
+    <!-- the people stuffs -->
+    <div class="row-container">
+        <!-- Search container -->
+        <div class="search-container">
+            <h2>Search by Patient</h2>
+            <form action="./php_files/fullPatientLookup.php" method="post">
+                <!-- Label for accessibility -->
+                <label for="search">Enter Patient ID:</label>
+
+                <!-- Search input field -->
+                <input type="text" id="search" name="search" placeholder="Type your search term..." required>
+
+                <!-- Submit button -->
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Chart container -->
+        <div id="patientChart" style="width:700px; height: 500px;"></div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <p>Applied Databases Group Project 2025</p>
+    </footer>
+
+
+    <script>
+        // Fetch data from the PHP script
+        fetch('./php_files/fetchData.php')
+            .then(response => response.json())
+            .then(data => {
+                // Extract data for the 3D chart
+                const diseaseType = data.map(item => item.DISEASE_TYPE);
+                const diseaseName = data.map(item => item.DISEASE_NAME);
+                const firstCase = data.map(item => item.FIRST_CASE_DATE);
+
+                // Define a color mapping for disease types
+                const colorMapping = {
+                    Viral: 'red',
+                    Bacterial: 'blue',
+                    Fungal: 'green',
+                    Parasitic: 'purple',
+                    Other: 'orange'
+                };
+
+                // Map disease types to colors
+                const colors = diseaseType.map(type => colorMapping[type] || 'gray'); // Default to gray if type is unknown
+
+                // Define the 3D scatter plot
+                const trace = {
+                    x: diseaseType,
+                    y: diseaseName,
+                    z: firstCase,
+                    text: diseaseName, // Hover text
+                    mode: 'markers',
+                    marker: {
+                        size: 4,
+                        color: colors, // Use the mapped colors
+                        showscale: false, // Disable color scale since we're using discrete colors
+                        opacity: 0.8
+                    },
+                    type: 'scatter3d'
+                };
+
+                const layout = {
+                    scene: {
+                        xaxis: { title: 'Disease Type' },
+                        yaxis: { title: 'Disease Name' },
+                        zaxis: { title: 'First Case' }
+                    }
+                };
+
+                // Render the chart
+                Plotly.newPlot('my3DChart', [trace], layout);
+
+                // Add spinning effect
+                let angle = 0;
+                setInterval(() => {
+                    angle += 0.003; // Adjust the speed of rotation
+                    const camera = {
+                        eye: {
+                            x: 1.5 * Math.sin(angle), // Rotate around the x-axis
+                            y: 1.5 * Math.cos(angle), // Rotate around the y-axis
+                            z: 0.5 // Keep a fixed height
+                        }
+                    };
+                    Plotly.relayout('my3DChart', { 'scene.camera': camera });
+                }, 20); // Update every 20ms
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+
+
+            // Fetch data from the PHP script
+        fetch('./php_files/fetchPatientData.php')
+            .then(response => response.json())
+            .then(data => {
+                // Extract data for the 3D chart
+                const patient_ID = data.map(item => item.PATIENT_ID);
+                const patientDOB = data.map(item => item.DOB);
+                const infectionStatus = data.map(item => item.PATIENT_INFECTION_STATUS);
+
+                // Define a color mapping for disease types
+                const colorMapping = {
+                    Recovered: 'green',
+                    Infected: 'red',
+                    Susceptible: 'yellow',
+                };
+
+                // Map disease types to colors
+                const colors = infectionStatus.map(type => colorMapping[type] || 'gray'); // Default to gray if type is unknown
+
+                // Define the 3D scatter plot
+                const trace = {
+                    x: patient_ID,
+                    y: patientDOB,
+                    z: infectionStatus,
+                    text: patientDOB, // Hover text
+                    mode: 'markers',
+                    marker: {
+                        size: 4,
+                        color: colors, // Use the mapped colors
+                        showscale: false, // Disable color scale since we're using discrete colors
+                        opacity: 0.8
+                    },
+                    type: 'scatter3d'
+                };
+
+                const layout = {
+                    scene: {
+                        xaxis: { title: 'Patient ID' },
+                        yaxis: { title: 'Patient DOB' },
+                        zaxis: { title: 'Infection Status' }
+                    }
+                };
+
+                // Render the chart
+                Plotly.newPlot('patientChart', [trace], layout);
+
+                // Add spinning effect
+                let angle = 0;
+                setInterval(() => {
+                    angle += 0.003; // Adjust the speed of rotation
+                    const camera = {
+                        eye: {
+                            x: 1.5 * Math.sin(angle), // Rotate around the x-axis
+                            y: 1.5 * Math.cos(angle), // Rotate around the y-axis
+                            z: 0.5 // Keep a fixed height
+                        }
+                    };
+                    Plotly.relayout('patientChart', { 'scene.camera': camera });
+                }, 20); // Update every 20ms
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>

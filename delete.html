@@ -1,0 +1,65 @@
+<!-- Delete -->
+<!---- Delete data from some tables -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete</title>
+    <link rel="stylesheet" href="./stylesheets/export_stylesheet.css">
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <h1>Disease Database System</h1>
+    </header>
+    
+    <!-- navbar-->
+    <nav>
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="help.html">Help</a></li>
+            <li><a href="./php_files/upload.php">Upload</a></li> 
+            <li><a href="delete.html">Delete</a></li> 
+            <li><a href="export.html">Export</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href='./php_files/display_disease_information.php'>Diseases</a></li>
+        </ul>
+    </nav>
+
+    
+    <div class="export-container">
+       <form action="./php_files/delete.php" method="POST">   
+            <h2>Delete Data</h2>
+            <p>Which of the below tables would you like to delete data from?</p>
+
+            <!-- Choose table to delete data from  -->
+             <!--  ['Disease', 'Disease_Pathogen', 'Disease_Symptom', 'Healthcare_Provider', 'Outbreak', 'Pathogen', 'Patient', 'Patient_Pathogen_Contact', 'Symptom'] -->
+            <label for="table">Choose Table:</label>
+            <select id="table" name="table">
+                <option value="Disease">Disease</option>
+                <option value="Disease_Pathogen">Disease_Pathogen</option>
+                <option value="Disease_Symptom">Disease_Symptom</option>
+                <option value="Healthcare_Provider">Healthcare_Provider</option>
+                <option value="Outbreak">Outbreak</option>
+                <option value="Pathogen">Pathogen</option>
+                <option value="Patient">Patient</option>
+                <option value="Patient_Pathogen_Contact">Patient_Pathogen_Contact</option>
+                <option value="Symptom">Symptom</option>
+            </select>
+
+        
+            <!-- Delete Button -->
+            <button type="submit">Find Data</button>
+       </form>
+    </div>
+
+    <!--footer-->
+    <footer>
+        <p>Applied Databases Group Project 2025 </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,139 @@
+/* Apply styling to the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    text-align: center; 
+}
+
+/* Flex container for search box and chart */
+.row-container {
+    display: flex;
+    justify-content: space-around; /* Space out the charts evenly */
+    align-items: center; /* Align charts vertically */
+    gap: 20px; /* Add spacing between the charts */
+    margin-top: 20px;
+}
+
+/* Styling the container for search */
+.search-container {
+    width: 25%; /* Set the width of the search box */
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure form elements stack vertically */
+.search-container label,
+.search-container input,
+.search-container button {
+    display: block; /* Force block-level display */
+    width: 100%; /* Ensure full width */
+    margin-bottom: 15px; /* Add spacing between elements */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Reset any inherited inline styles */
+.search-container input,
+.search-container button {
+    display: block; /* Override any inline or inline-block styles */
+}
+
+/* Adjust input field */
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+/* Add focus effect */
+input[type="text"]:focus {
+    border-color: #007BFF;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Adjust button */
+button {
+    padding: 10px 20px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    text-align: center; /* Center text inside the button */
+}
+
+/* Add hover effect */
+button:hover {
+    background: #0056b3;
+}
+
+/* Header styling */
+header {
+    background: #007BFF;
+    color: white;
+    padding: 15px;
+}
+
+/* Navigation menu */
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 18px;
+}
+
+/* Main content */
+main {
+    margin: 20px auto;
+    width: 80%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Quick link section */
+.link-box a {
+    display: block;
+    padding: 10px;
+    margin: 10px auto;
+    background: #007BFF;
+    color: white;
+    text-decoration: none;
+    width: 50%;
+    border-radius: 5px;
+}
+
+/* Footer styling */
+footer {
+    margin-top: 20px;
+    background: #333;
+    color: white;
+    padding: 10px;
+}
+
+/* Chart container styling */
+#my3DChart, #patientChart {
+    width: 500px;
+    height: 500px;
+}
